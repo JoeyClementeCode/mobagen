@@ -2,7 +2,7 @@
 #include "World.h"
 #include <stdexcept>
 
-Point2D Cat::Move(World* world) {
+/*Point2D Cat::Move(World* world) {
   auto rand = Random::Range(0, 5);
   auto pos = world->getCat();
   switch (rand) {
@@ -21,4 +21,14 @@ Point2D Cat::Move(World* world) {
     default:
       throw "random out of range";
   }
+}*/
+
+Point2D Cat::Move(World* w)
+{
+  auto path = generatePath(w);
+  if(!path.empty())
+  {
+    return path[path.size() - 1];
+  }
+  return randomMove(w);
 }
