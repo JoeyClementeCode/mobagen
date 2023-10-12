@@ -1,6 +1,8 @@
 #include "World.h"
 #include "Agent.h"
 
+using namespace std;
+
 Point2D Agent::randomMove(World* w)
 {
   // Get Random Number and Move In That Direction
@@ -27,19 +29,19 @@ Point2D Agent::randomMove(World* w)
   }
 }
 
-std::vector<Point2D> Agent::generatePath(World* w)
+vector<Point2D> Agent::generatePath(World* w)
 {
   // Establish Frontier, Paths, Slots, Cat, Exit Point, and Neighbors (+ Initialization of Frontier)
-  std::queue<Point2D> frontier;
-  std::unordered_map<Point2D, Point2D> originalPath;
-  std::vector<Point2D> path;
-  std::unordered_set<Point2D> currentFrontier;
-  std::unordered_map<Point2D, bool> visitedSlots;
-  std::queue<Point2D> const newPath;
+  queue<Point2D> frontier;
+  unordered_map<Point2D, Point2D> originalPath;
+  vector<Point2D> path;
+  unordered_set<Point2D> currentFrontier;
+  unordered_map<Point2D, bool> visitedSlots;
+  queue<Point2D> const newPath;
   Point2D const catPos = w->getCat();
   Point2D current{};
   Point2D exitPoint = Point2D(INT_MAX, INT_MAX);
-  std::vector<Point2D> neighbors;
+  vector<Point2D> neighbors;
 
   frontier.push(catPos);
   currentFrontier.insert(catPos);
@@ -82,11 +84,11 @@ std::vector<Point2D> Agent::generatePath(World* w)
 }
 
 
-std::vector<Point2D> Agent::getNeighbors(Point2D point, World* w, std::unordered_map<Point2D, bool>& visitedSlots, const std::unordered_set<Point2D>& frontier)
+vector<Point2D> Agent::getNeighbors(Point2D point, World* w, unordered_map<Point2D, bool>& visitedSlots, const unordered_set<Point2D>& frontier)
 {
   // Initialized Cat, And Each Direction via the World
   auto cat = w->getCat();
-  std::vector<Point2D> neighbors;
+  vector<Point2D> neighbors;
   auto East = World::E(point);
   auto West = World::W(point);
   auto Northeast = World::NE(point);

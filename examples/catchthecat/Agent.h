@@ -7,12 +7,14 @@
 #include <unordered_map>
 class World;
 
+using namespace std;
+
 class Agent {
 public:
   explicit Agent() = default;
   static Point2D randomMove(World*);
-  static std::vector<Point2D> generatePath(World* w);
-  static std::vector<Point2D> getNeighbors(Point2D point, World* w, std::unordered_map<Point2D, bool>& visited, const std::unordered_set<Point2D>& frontier);
+  static vector<Point2D> generatePath(World* w);
+  static vector<Point2D> getNeighbors(Point2D point, World* w, unordered_map<Point2D, bool>& visited, const unordered_set<Point2D>& frontier);
   virtual Point2D Move(World*) = 0;
 };
 
