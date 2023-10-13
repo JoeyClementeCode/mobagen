@@ -31,7 +31,7 @@ Point2D Agent::randomMove(World* w)
 
 vector<Point2D> Agent::generatePath(World* w)
 {
-  // Establish Frontier, Paths, Slots, Cat, Exit Point, and Neighbors (+ Initialization of Frontier)
+  // Establish Frontier, Paths, Slots, Cat, Exit, and Neighbors (+ Initialization of Frontier)
   queue<Point2D> frontier;
   unordered_map<Point2D, Point2D> originalPath;
   vector<Point2D> path;
@@ -40,14 +40,16 @@ vector<Point2D> Agent::generatePath(World* w)
   queue<Point2D> const newPath;
   Point2D const catPos = w->getCat();
   Point2D current{};
-  Point2D exitPoint = Point2D(INT_MAX, INT_MAX);
+  Point2D exit = Point2D(INT_MAX, INT_MAX);
   vector<Point2D> neighbors;
 
-  frontier.push(catPos);
-  currentFrontier.insert(catPos);
   originalPath[catPos] = Point2D(INT_MAX, INT_MAX);
+  currentFrontier.insert(catPos);
+  frontier.push(catPos);
 
-  while (!frontier.empty() && exitPoint == Point2D(INT_MAX, INT_MAX))
+
+
+  while (!frontier.empty() && exit == Point2D(INT_MAX, INT_MAX))
   {
     current = frontier.front();
     frontier.pop();
@@ -60,19 +62,21 @@ vector<Point2D> Agent::generatePath(World* w)
     // Adding to Frontier from Neighbors
     for(Point2D const n : neighbors)
     {
-      originalPath[n] = current;
       frontier.push(n);
       currentFrontier.insert(n);
 
+
+      originalPath[n] = current;
+
       if(w->catWinsOnSpace(n))
       {
-        exitPoint = n;
+        exit = n;
         break;
       }
     }
   }
 
-  current = exitPoint;
+  current = exit;
 
   while(current != w->getCat())
   {
